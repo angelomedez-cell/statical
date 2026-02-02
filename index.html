@@ -1,450 +1,385 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.3">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #6d6d6d; -webkit-text-stroke: #6d6d6d}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #6b0001; -webkit-text-stroke: #6b0001}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #fb0007; -webkit-text-stroke: #fb0007}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #0000ff; -webkit-text-stroke: #0000ff}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; -webkit-text-stroke: #000000}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #18702b; -webkit-text-stroke: #18702b}
-    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; -webkit-text-stroke: #000000; min-height: 16.0px}
-    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #093c94; -webkit-text-stroke: #093c94}
-    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #4d5055; -webkit-text-stroke: #4d5055}
-    span.s1 {font-kerning: none; background-color: #ecf1f7}
-    span.s2 {font-kerning: none; color: #fb0007; background-color: #ecf1f7; -webkit-text-stroke: 0px #fb0007}
-    span.s3 {font-kerning: none; color: #2a2a2a; background-color: #ecf1f7; -webkit-text-stroke: 0px #2a2a2a}
-    span.s4 {font-kerning: none; color: #000000; background-color: #ecf1f7; -webkit-text-stroke: 0px #000000}
-    span.s5 {font-kerning: none; color: #0000ff; background-color: #ecf1f7; -webkit-text-stroke: 0px #0000ff}
-    span.s6 {font-kerning: none; color: #6b0001; background-color: #ecf1f7; -webkit-text-stroke: 0px #6b0001}
-    span.s7 {font-kerning: none; color: #6f0ec3; background-color: #ecf1f7; -webkit-text-stroke: 0px #6f0ec3}
-    span.s8 {font-kerning: none; color: #093c94; background-color: #ecf1f7; -webkit-text-stroke: 0px #093c94}
-    span.s9 {font-kerning: none}
-    span.s10 {font-kerning: none; color: #18702b; background-color: #ecf1f7; -webkit-text-stroke: 0px #18702b}
-    span.s11 {font-kerning: none; color: #137646; background-color: #ecf1f7; -webkit-text-stroke: 0px #137646}
-    span.s12 {font-kerning: none; color: #0e6e6d; background-color: #ecf1f7; -webkit-text-stroke: 0px #0e6e6d}
-    span.s13 {font-kerning: none; color: #a4450b; background-color: #ecf1f7; -webkit-text-stroke: 0px #a4450b}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Static Lab - Grade 5 Science</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap');
+
+        :root {
+            --primary: #4f46e5;
+            --secondary: #f59e0b;
+            --accent: #10b981;
+            --bg: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg);
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        h1, h2, .font-title {
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .lab-bench {
+            background: linear-gradient(to bottom, #d1d5db 0%, #9ca3af 100%);
+            border-top: 8px solid #4b5563;
+        }
+
+        .object-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+        }
+
+        .electron {
+            width: 10px;
+            height: 10px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            position: absolute;
+            transition: all 0.5s ease-in-out;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .spark {
+            position: absolute;
+            pointer-events: none;
+            animation: flash 0.2s ease-out forwards;
+        }
+
+        @keyframes flash {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        #micro-view {
+            background: radial-gradient(circle, #2d3748 0%, #1a202c 100%);
+            border: 4px solid #4a5568;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #inventory::-webkit-scrollbar {
+            width: 6px;
+        }
+        #inventory::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
 </head>
-<body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE</span><span class="s2"> html</span><span class="s1">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;</span><span class="s1">html</span><span class="s4"> </span><span class="s2">lang</span><span class="s3">=</span><span class="s5">"en"</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s1">charset</span><span class="s3">=</span><span class="s5">"UTF-8"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"viewport"</span><span class="s4"> </span><span class="s2">content</span><span class="s3">=</span><span class="s1">"width=device-width, initial-scale=1.0"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">title</span><span class="s3">&gt;</span><span class="s1">The Static Lab - Grade 5 Science</span><span class="s3">&lt;/</span><span class="s6">title</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://cdn.tailwindcss.com"</span><span class="s3">&gt;&lt;/</span><span class="s6">script</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s7">@import</span><span class="s4"> </span><span class="s8">url</span><span class="s4">(</span><span class="s1">'https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Quicksand:wght@400;600&amp;display=swap'</span><span class="s4">);</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">:root</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">--primary:</span><span class="s1"> </span><span class="s8">#4f46e5</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">--secondary:</span><span class="s1"> </span><span class="s8">#f59e0b</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">--accent:</span><span class="s1"> </span><span class="s8">#10b981</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">--bg:</span><span class="s1"> </span><span class="s8">#f3f4f6</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">body</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-family:</span><span class="s1"> </span><span class="s10">'Quicksand'</span><span class="s1">, </span><span class="s8">sans-serif</span><span class="s1">;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">background-color:</span><span class="s4"> </span><span class="s8">var(--bg)</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">overflow-x:</span><span class="s1"> </span><span class="s8">hidden</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">touch-action:</span><span class="s1"> </span><span class="s8">manipulation</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">h1</span><span class="s4">, </span><span class="s1">h2</span><span class="s4">, </span><span class="s1">.font-title</span><span class="s4"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">font-family:</span><span class="s1"> </span><span class="s10">'Fredoka One'</span><span class="s1">, </span><span class="s8">cursive</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">.lab-bench</span><span class="s1"> {</span></p>
-<p class="p8"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">background:</span><span class="s4"> </span><span class="s1">linear-gradient(to</span><span class="s4"> </span><span class="s1">bottom</span><span class="s4">, </span><span class="s1">#d1d5db</span><span class="s4"> </span><span class="s11">0%</span><span class="s4">, </span><span class="s1">#9ca3af</span><span class="s4"> </span><span class="s11">100%</span><span class="s1">)</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-top:</span><span class="s1"> </span><span class="s11">8px</span><span class="s1"> </span><span class="s8">solid</span><span class="s1"> </span><span class="s8">#4b5563</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.object-card</span><span class="s4"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transition:</span><span class="s1"> </span><span class="s8">all</span><span class="s1"> </span><span class="s11">0.3s</span><span class="s1"> </span><span class="s8">cubic-bezier(</span><span class="s11">0.4</span><span class="s1">, </span><span class="s11">0</span><span class="s1">, </span><span class="s11">0.2</span><span class="s1">, </span><span class="s11">1</span><span class="s8">)</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">cursor:</span><span class="s1"> </span><span class="s8">pointer</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">.electron</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">width:</span><span class="s1"> </span><span class="s11">10px</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">height:</span><span class="s1"> </span><span class="s11">10px</span><span class="s1">;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">background-color:</span><span class="s4"> </span><span class="s8">#3b82f6</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius:</span><span class="s1"> </span><span class="s11">50%</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">position:</span><span class="s1"> </span><span class="s8">absolute</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transition:</span><span class="s1"> </span><span class="s8">all</span><span class="s1"> </span><span class="s11">0.5s</span><span class="s1"> </span><span class="s8">ease-in-out</span><span class="s1">;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">pointer-events:</span><span class="s4"> </span><span class="s8">none</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">z-index:</span><span class="s1"> </span><span class="s11">50</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">.spark</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">position:</span><span class="s1"> </span><span class="s8">absolute</span><span class="s1">;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">pointer-events:</span><span class="s4"> </span><span class="s8">none</span><span class="s4">;</span></p>
-<p class="p8"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">animation:</span><span class="s4"> </span><span class="s1">flash</span><span class="s4"> </span><span class="s11">0.2s</span><span class="s4"> </span><span class="s1">ease-out</span><span class="s4"> </span><span class="s1">forwards</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">@keyframes</span><span class="s1"> </span><span class="s8">flash</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">0%</span><span class="s1"> { </span><span class="s2">transform:</span><span class="s1"> </span><span class="s8">scale(</span><span class="s11">0</span><span class="s8">)</span><span class="s1">; </span><span class="s2">opacity:</span><span class="s1"> </span><span class="s11">1</span><span class="s1">; }</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">100%</span><span class="s1"> { </span><span class="s2">transform:</span><span class="s1"> </span><span class="s8">scale(</span><span class="s11">2</span><span class="s8">)</span><span class="s1">; </span><span class="s2">opacity:</span><span class="s1"> </span><span class="s11">0</span><span class="s1">; }</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">.floating</span><span class="s1"> {</span></p>
-<p class="p8"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">animation:</span><span class="s4"> </span><span class="s1">float</span><span class="s4"> </span><span class="s11">3s</span><span class="s4"> </span><span class="s1">ease-in-out</span><span class="s4"> </span><span class="s1">infinite</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">@keyframes</span><span class="s1"> </span><span class="s8">float</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">0%</span><span class="s1">, </span><span class="s11">100%</span><span class="s1"> { </span><span class="s2">transform:</span><span class="s1"> </span><span class="s8">translateY(</span><span class="s11">0</span><span class="s8">)</span><span class="s1">; }</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s11">50%</span><span class="s1"> { </span><span class="s2">transform:</span><span class="s1"> </span><span class="s8">translateY(</span><span class="s11">-10px</span><span class="s8">)</span><span class="s1">; }</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">#micro-view</span><span class="s4"> {</span></p>
-<p class="p8"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">background:</span><span class="s4"> </span><span class="s1">radial-gradient(circle</span><span class="s4">, </span><span class="s1">#2d3748</span><span class="s4"> </span><span class="s11">0%</span><span class="s4">, </span><span class="s1">#1a202c</span><span class="s4"> </span><span class="s11">100%</span><span class="s1">)</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border:</span><span class="s1"> </span><span class="s11">4px</span><span class="s1"> </span><span class="s8">solid</span><span class="s1"> </span><span class="s8">#4a5568</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius:</span><span class="s1"> </span><span class="s11">20px</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">position:</span><span class="s1"> </span><span class="s8">relative</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">overflow:</span><span class="s1"> </span><span class="s8">hidden</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">/* Custom Scrollbar for Inventory */</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">#inventory::-webkit-scrollbar</span><span class="s4"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">width:</span><span class="s1"> </span><span class="s11">6px</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">#inventory::-webkit-scrollbar-thumb</span><span class="s4"> {</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">background-color:</span><span class="s4"> </span><span class="s8">#cbd5e1</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-radius:</span><span class="s1"> </span><span class="s11">10px</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;/</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s3">&lt;</span><span class="s6">body</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"min-h-screen flex flex-col"</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Header --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">header</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-indigo-600 text-white p-4 shadow-lg flex justify-between items-center"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex items-center gap-3"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-yellow-400 p-2 rounded-full text-indigo-900 shadow-inner"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">svg</span><span class="s4"> </span><span class="s2">xmlns</span><span class="s3">=</span><span class="s1">"http://www.w3.org/2000/svg"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"h-8 w-8"</span><span class="s4"> </span><span class="s2">viewBox</span><span class="s3">=</span><span class="s1">"0 0 24 24"</span><span class="s4"> </span><span class="s2">fill</span><span class="s3">=</span><span class="s1">"currentColor"</span><span class="s3">&gt;&lt;</span><span class="s6">path</span><span class="s4"> </span><span class="s2">d</span><span class="s3">=</span><span class="s1">"M13 10V3L4 14H11V21L20 10H13Z"</span><span class="s3">/&gt;&lt;/</span><span class="s6">svg</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">h1</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xl md:text-2xl tracking-wide leading-none uppercase"</span><span class="s3">&gt;</span><span class="s4">THE STATIC LAB</span><span class="s3">&lt;/</span><span class="s6">h1</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-[10px] sm:text-xs font-semibold opacity-90 mt-1 uppercase tracking-wider"</span><span class="s3">&gt;</span><span class="s4">Created by: Sir Angelo Medez, LPT</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex gap-2 md:gap-4 items-center"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-indigo-800 px-3 md:px-4 py-1 rounded-full font-bold text-sm md:text-base"</span><span class="s3">&gt;</span><span class="s4">Score: </span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"score"</span><span class="s3">&gt;</span><span class="s4">0</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"showInstructions()"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-indigo-500 hover:bg-indigo-400 px-3 py-1 rounded-md text-xs md:text-sm transition shadow-sm"</span><span class="s3">&gt;</span><span class="s4">Help</span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">header</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Main Game Area --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">main</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex-grow flex flex-col md:flex-row p-4 gap-4 overflow-hidden"</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">&lt;!-- Left Panel: The Experiment Zone --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex-grow flex flex-col gap-4"</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">&lt;!-- Instructions/Status --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"status-bar"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-white p-4 rounded-xl shadow-md border-b-4 border-indigo-200 text-center"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-lg font-semibold text-gray-700"</span><span class="s1"> </span><span class="s2">id</span><span class="s3">=</span><span class="s5">"hint-text"</span><span class="s3">&gt;</span><span class="s1">Select two materials to rub together!</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">&lt;!-- Interaction Stage --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex-grow relative flex items-center justify-around bg-blue-50 rounded-3xl border-2 border-dashed border-blue-200 p-8 overflow-hidden"</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">&lt;!-- Object 1 Container --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"slot-1"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-32 h-32 md:w-48 md:h-48 flex items-center justify-center bg-white/50 rounded-2xl border-2 border-gray-300 relative transition-all"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-gray-400 absolute pointer-events-none text-xs uppercase font-bold"</span><span class="s3">&gt;</span><span class="s4">Item 1</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"obj-container-1"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"z-10"</span><span class="s3">&gt;&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">&lt;!-- Center: The Action --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex flex-col items-center justify-center gap-4 z-20"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"rubbing-area"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-24 h-24 rounded-full bg-indigo-100 flex items-center justify-center hidden"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"animate-ping absolute w-20 h-20 rounded-full bg-indigo-300 opacity-75"</span><span class="s3">&gt;&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-3xl"</span><span class="s3">&gt;</span><span class="s1">✨</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"rub-btn"</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"startRubbing()"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"hidden bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 active:scale-95 transition"</span><span class="s3">&gt;</span><span class="s4">RUB THEM!</span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"reset-btn"</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"resetLab()"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"hidden bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition"</span><span class="s3">&gt;</span><span class="s4">Reset Lab</span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">&lt;!-- Object 2 Container --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"slot-2"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-32 h-32 md:w-48 md:h-48 flex items-center justify-center bg-white/50 rounded-2xl border-2 border-gray-300 relative transition-all"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-gray-400 absolute pointer-events-none text-xs uppercase font-bold"</span><span class="s3">&gt;</span><span class="s4">Item 2</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"obj-container-2"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"z-10"</span><span class="s3">&gt;&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s1">&lt;!-- Particle field for animations --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"particle-field"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute inset-0 pointer-events-none"</span><span class="s3">&gt;&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">&lt;!-- Micro View --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"micro-view-container"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"h-32 md:h-40 hidden flex flex-col"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xs font-bold text-indigo-900 mb-1 ml-2 uppercase tracking-tighter"</span><span class="s3">&gt;</span><span class="s4">Microscope: Electron Flow</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"micro-view"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex-grow flex items-center justify-around"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-center"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"micro-atom-1"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"relative w-12 h-12 md:w-16 md:h-16 bg-red-400 rounded-full flex items-center justify-center text-white font-bold text-xl border-4 border-red-200"</span><span class="s3">&gt;</span><span class="s4">+</span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-white text-[10px] mt-1"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"micro-label-1"</span><span class="s3">&gt;&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"transfer-path"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-1/2 h-1 bg-white/20 relative"</span><span class="s3">&gt;&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-center"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"micro-atom-2"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"relative w-12 h-12 md:w-16 md:h-16 bg-blue-400 rounded-full flex items-center justify-center text-white font-bold text-xl border-4 border-blue-200"</span><span class="s3">&gt;</span><span class="s4">-</span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-white text-[10px] mt-1"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"micro-label-2"</span><span class="s3">&gt;&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">&lt;!-- Right Panel: Inventory --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-full md:w-80 flex flex-col gap-4 h-full"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-white p-4 rounded-xl shadow-md flex-grow overflow-hidden flex flex-col"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"font-title text-indigo-600 border-b-2 border-indigo-100 pb-2 mb-4 uppercase text-sm tracking-widest"</span><span class="s3">&gt;</span><span class="s4">Inventory</span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"inventory"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"grid grid-cols-2 md:grid-cols-1 gap-3 overflow-y-auto pr-1"</span><span class="s3">&gt;</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s1">&lt;!-- Cards generated by JS --&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-indigo-900 text-white p-4 rounded-xl shadow-md"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"font-title text-yellow-400 text-sm mb-2 uppercase"</span><span class="s3">&gt;</span><span class="s4">Did you know?</span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s1"> </span><span class="s2">id</span><span class="s3">=</span><span class="s5">"fact-box"</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-xs md:text-sm leading-relaxed opacity-90"</span><span class="s3">&gt;</span><span class="s1">Static electricity comes from the Greek word "elektron," which means amber!</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s6">main</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"lab-bench h-12 w-full"</span><span class="s3">&gt;&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Feedback Message Overlay (Non-blocking) --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"toast"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fixed bottom-16 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-6 py-2 rounded-full text-sm font-bold shadow-xl opacity-0 transition-opacity pointer-events-none z-[200]"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>Copied to clipboard!</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Modals --&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"overlay"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fixed inset-0 bg-black/70 z-[100] hidden items-center justify-center p-4 backdrop-blur-sm"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"modal-content"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl transform transition-all text-center"</span><span class="s3">&gt;</span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">&lt;!-- Modal data injected here --&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> </span><span class="s12">MATERIALS</span><span class="s1"> = {</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span>balloon: { name: </span><span class="s1">"Rubber Balloon"</span><span class="s4">, icon: </span><span class="s1">"🎈"</span><span class="s4">, affinity: -</span><span class="s13">3</span><span class="s4">, color: </span><span class="s1">"bg-pink-400"</span><span class="s4">, fact: </span><span class="s1">"Rubber is an insulator that loves to steal electrons!"</span><span class="s4"> },</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span>wool: { name: </span><span class="s1">"Wool Sweater"</span><span class="s4">, icon: </span><span class="s1">"🧶"</span><span class="s4">, affinity: </span><span class="s13">3</span><span class="s4">, color: </span><span class="s1">"bg-orange-200"</span><span class="s4">, fact: </span><span class="s1">"Wool gives away electrons easily, making it positive."</span><span class="s4"> },</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span>glass: { name: </span><span class="s1">"Glass Rod"</span><span class="s4">, icon: </span><span class="s1">"🧪"</span><span class="s4">, affinity: </span><span class="s13">5</span><span class="s4">, color: </span><span class="s1">"bg-blue-100"</span><span class="s4">, fact: </span><span class="s1">"Glass rod is very high on the series; it loses electrons easily."</span><span class="s4"> },</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span>silk: { name: </span><span class="s1">"Silk Cloth"</span><span class="s4">, icon: </span><span class="s1">"🧣"</span><span class="s4">, affinity: -</span><span class="s13">1</span><span class="s4">, color: </span><span class="s1">"bg-purple-200"</span><span class="s4">, fact: </span><span class="s1">"Silk grabs electrons from glass but gives them to rubber."</span><span class="s4"> },</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span>plastic: { name: </span><span class="s1">"Plastic Comb"</span><span class="s4">, icon: </span><span class="s1">"🪮"</span><span class="s4">, affinity: -</span><span class="s13">4</span><span class="s4">, color: </span><span class="s1">"bg-gray-400"</span><span class="s4">, fact: </span><span class="s1">"Plastic holds onto its electrons very tightly."</span><span class="s4"> },</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span>hair: { name: </span><span class="s1">"Human Hair"</span><span class="s4">, icon: </span><span class="s1">"🧑"</span><span class="s4">, affinity: </span><span class="s13">4</span><span class="s4">, color: </span><span class="s1">"bg-yellow-800"</span><span class="s4">, fact: </span><span class="s1">"Hair loses electrons quickly. That's why it stands up!"</span><span class="s4"> }</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> </span><span class="s12">STATE</span><span class="s1"> = {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>selected: [],</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>score: </span><span class="s13">0</span><span class="s1">,</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>isRubbing: </span><span class="s7">false</span><span class="s1">,</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>discoveredPairs: </span><span class="s7">new</span><span class="s1"> </span><span class="s12">Set</span><span class="s1">()</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> init() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> inv = document.getElementById(</span><span class="s10">'inventory'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s12">Object</span><span class="s1">.keys(</span><span class="s12">MATERIALS</span><span class="s1">).forEach(key =&gt; {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> m = </span><span class="s12">MATERIALS</span><span class="s1">[key];</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> div = document.createElement(</span><span class="s10">'div'</span><span class="s1">);</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span>div.className = </span><span class="s1">`object-card </span><span class="s4">${m.color}</span><span class="s1"> p-3 rounded-xl shadow-sm border-b-4 border-black/10 flex items-center gap-3 hover:scale-105 active:scale-95 transition-transform`</span><span class="s4">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">                </span>div.innerHTML = </span><span class="s1">`&lt;span class="text-3xl"&gt;</span><span class="s4">${m.icon}</span><span class="s1">&lt;/span&gt;&lt;span class="text-xs font-bold uppercase"&gt;</span><span class="s4">${m.name}</span><span class="s1">&lt;/span&gt;`</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>div.onclick = () =&gt; selectMaterial(key);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>inv.appendChild(div);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>showInstructions();</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> selectMaterial(key) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s1"> (</span><span class="s12">STATE</span><span class="s1">.isRubbing || </span><span class="s12">STATE</span><span class="s1">.selected.length &gt;= </span><span class="s13">2</span><span class="s1">) </span><span class="s7">return</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s1"> (</span><span class="s12">STATE</span><span class="s1">.selected.includes(key)) </span><span class="s7">return</span><span class="s1">;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s12">STATE</span><span class="s1">.selected.push(key);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> slotIdx = </span><span class="s12">STATE</span><span class="s1">.selected.length;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> container = document.getElementById(</span><span class="s10">`obj-container-</span><span class="s1">${slotIdx}</span><span class="s10">`</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> slot = document.getElementById(</span><span class="s10">`slot-</span><span class="s1">${slotIdx}</span><span class="s10">`</span><span class="s1">);</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span>container.innerHTML = </span><span class="s1">`&lt;div class="text-6xl md:text-8xl floating"&gt;</span><span class="s4">${</span><span class="s12">MATERIALS</span><span class="s4">[key].icon}</span><span class="s1">&lt;/div&gt;`</span><span class="s4">;</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span>slot.classList.add(</span><span class="s1">'border-indigo-500'</span><span class="s4">, </span><span class="s1">'bg-indigo-50'</span><span class="s4">, </span><span class="s1">'shadow-inner'</span><span class="s4">);</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s1"> (</span><span class="s12">STATE</span><span class="s1">.selected.length === </span><span class="s13">2</span><span class="s1">) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById(</span><span class="s10">'rub-btn'</span><span class="s1">).classList.remove(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById(</span><span class="s10">'hint-text'</span><span class="s1">).innerText = </span><span class="s10">"Click RUB THEM to start the reaction!"</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>} </span><span class="s7">else</span><span class="s1"> {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById(</span><span class="s10">'hint-text'</span><span class="s1">).innerText = </span><span class="s10">"Now select Item 2 to compare."</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">async</span><span class="s1"> </span><span class="s7">function</span><span class="s1"> startRubbing() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s1"> (</span><span class="s12">STATE</span><span class="s1">.isRubbing) </span><span class="s7">return</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s12">STATE</span><span class="s1">.isRubbing = </span><span class="s7">true</span><span class="s1">;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'rub-btn'</span><span class="s1">).classList.add(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'rubbing-area'</span><span class="s1">).classList.remove(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'micro-view-container'</span><span class="s1">).classList.remove(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> m1 = </span><span class="s12">MATERIALS</span><span class="s1">[</span><span class="s12">STATE</span><span class="s1">.selected[</span><span class="s13">0</span><span class="s1">]];</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> m2 = </span><span class="s12">MATERIALS</span><span class="s1">[</span><span class="s12">STATE</span><span class="s1">.selected[</span><span class="s13">1</span><span class="s1">]];</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'micro-label-1'</span><span class="s1">).innerText = m1.name;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'micro-label-2'</span><span class="s1">).innerText = m2.name;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> giver = m1.affinity &gt; m2.affinity ? </span><span class="s13">1</span><span class="s1"> : </span><span class="s13">2</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> receiver = giver === </span><span class="s13">1</span><span class="s1"> ? </span><span class="s13">2</span><span class="s1"> : </span><span class="s13">1</span><span class="s1">;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">for</span><span class="s1"> (</span><span class="s7">let</span><span class="s1"> i = </span><span class="s13">0</span><span class="s1">; i &lt; </span><span class="s13">12</span><span class="s1">; i++) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>createElectron(giver, receiver);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">await</span><span class="s1"> </span><span class="s7">new</span><span class="s1"> </span><span class="s12">Promise</span><span class="s1">(r =&gt; setTimeout(r, </span><span class="s13">150</span><span class="s1">));</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> (i % </span><span class="s13">4</span><span class="s1"> === </span><span class="s13">0</span><span class="s1">) createSpark();</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>finishExperiment(</span><span class="s12">STATE</span><span class="s1">.selected[giver-</span><span class="s13">1</span><span class="s1">], </span><span class="s12">STATE</span><span class="s1">.selected[receiver-</span><span class="s13">1</span><span class="s1">]);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}, </span><span class="s13">600</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> createElectron(fromIdx, toIdx) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> field = document.getElementById(</span><span class="s10">'particle-field'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> startEl = document.getElementById(</span><span class="s10">`slot-</span><span class="s1">${fromIdx}</span><span class="s10">`</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> endEl = document.getElementById(</span><span class="s10">`slot-</span><span class="s1">${toIdx}</span><span class="s10">`</span><span class="s1">);</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> startRect = startEl.getBoundingClientRect();</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> endRect = endEl.getBoundingClientRect();</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> fieldRect = field.getBoundingClientRect();</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> e = document.createElement(</span><span class="s10">'div'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>e.className = </span><span class="s10">'electron'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>e.style.left = (startRect.left - fieldRect.left + startRect.width/</span><span class="s13">2</span><span class="s1">) + </span><span class="s10">'px'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>e.style.top = (startRect.top - fieldRect.top + startRect.height/</span><span class="s13">2</span><span class="s1">) + </span><span class="s10">'px'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>field.appendChild(e);</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>e.offsetHeight;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>e.style.left = (endRect.left - fieldRect.left + endRect.width/</span><span class="s13">2</span><span class="s1">) + </span><span class="s10">'px'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>e.style.top = (endRect.top - fieldRect.top + endRect.height/</span><span class="s13">2</span><span class="s1">) + </span><span class="s10">'px'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>e.style.opacity = </span><span class="s10">'0'</span><span class="s1">;</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; e.remove(), </span><span class="s13">600</span><span class="s1">);</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p9"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// Micro view logic</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> microPath = document.getElementById(</span><span class="s10">'transfer-path'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> me = document.createElement(</span><span class="s10">'div'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>me.className = </span><span class="s10">'electron'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>me.style.top = </span><span class="s10">'-4px'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>me.style.left = fromIdx === </span><span class="s13">1</span><span class="s1"> ? </span><span class="s10">'0%'</span><span class="s1"> : </span><span class="s10">'100%'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>microPath.appendChild(me);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; me.style.left = fromIdx === </span><span class="s13">1</span><span class="s1"> ? </span><span class="s10">'100%'</span><span class="s1"> : </span><span class="s10">'0%'</span><span class="s1">, </span><span class="s13">10</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; me.remove(), </span><span class="s13">500</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> createSpark() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> area = document.getElementById(</span><span class="s10">'rubbing-area'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> s = document.createElement(</span><span class="s10">'div'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>s.className = </span><span class="s10">'spark text-xl'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>s.innerHTML = </span><span class="s10">'⚡'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>s.style.left = (</span><span class="s12">Math</span><span class="s1">.random() * </span><span class="s13">60</span><span class="s1"> + </span><span class="s13">20</span><span class="s1">) + </span><span class="s10">'%'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>s.style.top = (</span><span class="s12">Math</span><span class="s1">.random() * </span><span class="s13">60</span><span class="s1"> + </span><span class="s13">20</span><span class="s1">) + </span><span class="s10">'%'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>area.appendChild(s);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; s.remove(), </span><span class="s13">300</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> finishExperiment(giverKey, receiverKey) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> giver = </span><span class="s12">MATERIALS</span><span class="s1">[giverKey];</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> receiver = </span><span class="s12">MATERIALS</span><span class="s1">[receiverKey];</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> pairId = [giverKey, receiverKey].sort().join(</span><span class="s10">'-'</span><span class="s1">);</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">let</span><span class="s1"> bonus = </span><span class="s13">0</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s1"> (!</span><span class="s12">STATE</span><span class="s1">.discoveredPairs.has(pairId)) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s12">STATE</span><span class="s1">.discoveredPairs.add(pairId);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>bonus = </span><span class="s13">50</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s12">STATE</span><span class="s1">.score += bonus;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById(</span><span class="s10">'score'</span><span class="s1">).innerText = </span><span class="s12">STATE</span><span class="s1">.score;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'rubbing-area'</span><span class="s1">).classList.add(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'reset-btn'</span><span class="s1">).classList.remove(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> resultHtml = </span><span class="s10">`</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-2xl font-title text-indigo-600 mb-2 uppercase"&gt;Discovery!&lt;/h2&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="space-y-4 text-left bg-gray-50 p-4 rounded-xl border border-indigo-100"&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;p class="text-sm"&gt;When rubbed, &lt;b&gt;electrons&lt;/b&gt; move from the </span><span class="s4">${giver.name}</span><span class="s1"> to the </span><span class="s4">${receiver.name}</span><span class="s1">.&lt;/p&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-around items-center py-4 bg-white rounded-lg shadow-inner border border-gray-100"&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div class="text-center"&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;span class="text-4xl"&gt;</span><span class="s4">${giver.icon}</span><span class="s1">&lt;/span&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div class="text-[10px] text-red-600 font-bold"&gt;+ POSITIVE&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div class="text-lg text-gray-300"&gt;➡&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div class="text-center"&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;span class="text-4xl"&gt;</span><span class="s4">${receiver.icon}</span><span class="s1">&lt;/span&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                            </span>&lt;div class="text-[10px] text-blue-600 font-bold"&gt;- NEGATIVE&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;p class="text-xs text-gray-500 italic"&gt;Fact: </span><span class="s4">${receiver.fact}</span><span class="s1">&lt;/p&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="flex flex-col gap-2 mt-6"&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button onclick="closeModal()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl shadow-md"&gt;Continue Lab&lt;/button&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button onclick="shareResult('</span><span class="s4">${giver.name}</span><span class="s1">', '</span><span class="s4">${receiver.name}</span><span class="s1">')" class="w-full bg-indigo-100 text-indigo-700 font-bold py-2 rounded-xl text-sm border border-indigo-200"&gt;Share Result&lt;/button&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">            </span>`</span><span class="s4">;</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>showModal(resultHtml);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> shareResult(giver, receiver) {</span></p>
-<p class="p6"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s4"> text = </span><span class="s1">`I discovered that in Sir Angelo Medez's Static Lab, electrons move from </span><span class="s4">${giver}</span><span class="s1"> to </span><span class="s4">${receiver}</span><span class="s1">! My score is </span><span class="s4">${</span><span class="s12">STATE</span><span class="s4">.score}</span><span class="s1">! ⚡🔬`</span><span class="s4">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> dummy = document.createElement(</span><span class="s10">"textarea"</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.body.appendChild(dummy);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>dummy.value = text;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>dummy.select();</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.execCommand(</span><span class="s10">"copy"</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.body.removeChild(dummy);</span></p>
-<p class="p7"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> toast = document.getElementById(</span><span class="s10">'toast'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>toast.style.opacity = </span><span class="s10">'1'</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; toast.style.opacity = </span><span class="s10">'0'</span><span class="s1">, </span><span class="s13">2000</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> resetLab() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s12">STATE</span><span class="s1">.selected = [];</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s12">STATE</span><span class="s1">.isRubbing = </span><span class="s7">false</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>[</span><span class="s10">'1'</span><span class="s1">,</span><span class="s10">'2'</span><span class="s1">].forEach(id =&gt; {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById(</span><span class="s10">`obj-container-</span><span class="s1">${id}</span><span class="s10">`</span><span class="s1">).innerHTML = </span><span class="s10">''</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById(</span><span class="s10">`slot-</span><span class="s1">${id}</span><span class="s10">`</span><span class="s1">).classList.remove(</span><span class="s10">'border-indigo-500'</span><span class="s1">, </span><span class="s10">'bg-indigo-50'</span><span class="s1">, </span><span class="s10">'shadow-inner'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'rub-btn'</span><span class="s1">).classList.add(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'reset-btn'</span><span class="s1">).classList.add(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'micro-view-container'</span><span class="s1">).classList.add(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'hint-text'</span><span class="s1">).innerText = </span><span class="s10">"Select two materials to rub together!"</span><span class="s1">;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> showModal(content) {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> overlay = document.getElementById(</span><span class="s10">'overlay'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> inner = document.getElementById(</span><span class="s10">'modal-content'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>inner.innerHTML = content;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>overlay.classList.remove(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>overlay.classList.add(</span><span class="s10">'flex'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> closeModal() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'overlay'</span><span class="s1">).classList.add(</span><span class="s10">'hidden'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(</span><span class="s10">'overlay'</span><span class="s1">).classList.remove(</span><span class="s10">'flex'</span><span class="s1">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> showInstructions() {</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>showModal(</span><span class="s10">`</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-2xl font-title text-indigo-600 mb-4 uppercase"&gt;How to Play&lt;/h2&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="text-left space-y-4 text-sm text-gray-700"&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="flex gap-3"&gt;&lt;span class="bg-indigo-100 w-6 h-6 rounded-full flex items-center justify-center font-bold text-indigo-600 shrink-0"&gt;1&lt;/span&gt; &lt;p&gt;Select 2 different items from the inventory.&lt;/p&gt;&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="flex gap-3"&gt;&lt;span class="bg-indigo-100 w-6 h-6 rounded-full flex items-center justify-center font-bold text-indigo-600 shrink-0"&gt;2&lt;/span&gt; &lt;p&gt;Click &lt;b&gt;RUB THEM&lt;/b&gt; to watch electrons move between atoms.&lt;/p&gt;&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="flex gap-3"&gt;&lt;span class="bg-indigo-100 w-6 h-6 rounded-full flex items-center justify-center font-bold text-indigo-600 shrink-0"&gt;3&lt;/span&gt; &lt;p&gt;Discover all the &lt;b&gt;positive&lt;/b&gt; and &lt;b&gt;negative&lt;/b&gt; combinations!&lt;/p&gt;&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">                </span>&lt;button onclick="closeModal()" class="mt-8 w-full bg-indigo-600 text-white font-bold py-3 rounded-xl shadow-lg"&gt;Start Experiment&lt;/button&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">            </span>`</span><span class="s4">);</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p7"><span class="s9"></span><br></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">        </span>window.onload = init;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;/</span><span class="s1">body</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s3">&lt;/</span><span class="s1">html</span><span class="s3">&gt;</span></p>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white p-4 shadow-lg flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="bg-yellow-400 p-2 rounded-full text-indigo-900 shadow-inner">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10V3L4 14H11V21L20 10H13Z"/></svg>
+            </div>
+            <div>
+                <h1 class="text-xl md:text-2xl tracking-wide leading-none uppercase">THE STATIC LAB</h1>
+                <p class="text-[10px] sm:text-xs font-semibold opacity-90 mt-1 uppercase tracking-wider">Created by: Sir Angelo Medez, LPT</p>
+            </div>
+        </div>
+        <div class="flex gap-2 md:gap-4 items-center">
+            <div class="bg-indigo-800 px-3 md:px-4 py-1 rounded-full font-bold text-sm md:text-base">Score: <span id="score">0</span></div>
+            <button onclick="showInstructions()" class="bg-indigo-500 hover:bg-indigo-400 px-3 py-1 rounded-md text-xs md:text-sm transition shadow-sm">Help</button>
+        </div>
+    </header>
+
+    <!-- Main Game Area -->
+    <main class="flex-grow flex flex-col md:flex-row p-4 gap-4 overflow-hidden">
+        
+        <!-- Left Panel: The Experiment Zone -->
+        <div class="flex-grow flex flex-col gap-4">
+            
+            <div id="status-bar" class="bg-white p-4 rounded-xl shadow-md border-b-4 border-indigo-200 text-center">
+                <p class="text-lg font-semibold text-gray-700" id="hint-text">Select two materials to rub together!</p>
+            </div>
+
+            <!-- Interaction Stage -->
+            <div class="flex-grow relative flex items-center justify-around bg-blue-50 rounded-3xl border-2 border-dashed border-blue-200 p-8 overflow-hidden">
+                
+                <div id="slot-1" class="w-32 h-32 md:w-48 md:h-48 flex items-center justify-center bg-white/50 rounded-2xl border-2 border-gray-300 relative transition-all">
+                    <span class="text-gray-400 absolute pointer-events-none text-xs uppercase font-bold">Item 1</span>
+                    <div id="obj-container-1" class="z-10"></div>
+                </div>
+
+                <div class="flex flex-col items-center justify-center gap-4 z-20">
+                    <div id="rubbing-area" class="w-24 h-24 rounded-full bg-indigo-100 flex items-center justify-center hidden">
+                        <div class="animate-ping absolute w-20 h-20 rounded-full bg-indigo-300 opacity-75"></div>
+                        <span class="text-3xl">✨</span>
+                    </div>
+                    <button id="rub-btn" onclick="startRubbing()" class="hidden bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 active:scale-95 transition">RUB THEM!</button>
+                    <button id="reset-btn" onclick="resetLab()" class="hidden bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-full shadow-md transition">Reset Lab</button>
+                </div>
+
+                <div id="slot-2" class="w-32 h-32 md:w-48 md:h-48 flex items-center justify-center bg-white/50 rounded-2xl border-2 border-gray-300 relative transition-all">
+                    <span class="text-gray-400 absolute pointer-events-none text-xs uppercase font-bold">Item 2</span>
+                    <div id="obj-container-2" class="z-10"></div>
+                </div>
+
+                <div id="particle-field" class="absolute inset-0 pointer-events-none"></div>
+            </div>
+
+            <!-- Micro View -->
+            <div id="micro-view-container" class="h-32 md:h-40 hidden flex flex-col">
+                <p class="text-xs font-bold text-indigo-900 mb-1 ml-2 uppercase tracking-tighter">Microscope: Electron Flow</p>
+                <div id="micro-view" class="flex-grow flex items-center justify-around">
+                    <div class="text-center">
+                        <div id="micro-atom-1" class="relative w-12 h-12 md:w-16 md:h-16 bg-red-400 rounded-full flex items-center justify-center text-white font-bold text-xl border-4 border-red-200">+</div>
+                        <p class="text-white text-[10px] mt-1" id="micro-label-1"></p>
+                    </div>
+                    <div id="transfer-path" class="w-1/2 h-1 bg-white/20 relative"></div>
+                    <div class="text-center">
+                        <div id="micro-atom-2" class="relative w-12 h-12 md:w-16 md:h-16 bg-blue-400 rounded-full flex items-center justify-center text-white font-bold text-xl border-4 border-blue-200">-</div>
+                        <p class="text-white text-[10px] mt-1" id="micro-label-2"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Inventory Grid -->
+        <div class="w-full md:w-80 flex flex-col gap-4 h-full">
+            <div class="bg-white p-4 rounded-xl shadow-md flex-grow overflow-hidden flex flex-col">
+                <h3 class="font-title text-indigo-600 border-b-2 border-indigo-100 pb-2 mb-4 uppercase text-sm tracking-widest text-center">Material Inventory</h3>
+                <div id="inventory" class="grid grid-cols-2 md:grid-cols-2 gap-3 overflow-y-auto p-1">
+                    <!-- JS generated items as grid cells -->
+                </div>
+            </div>
+
+            <div class="bg-indigo-900 text-white p-4 rounded-xl shadow-md">
+                <h3 class="font-title text-yellow-400 text-sm mb-2 uppercase">Did you know?</h3>
+                <p id="fact-box" class="text-xs md:text-sm leading-relaxed opacity-90">Static electricity comes from the Greek word "elektron," which means amber!</p>
+            </div>
+        </div>
+    </main>
+
+    <div class="lab-bench h-12 w-full"></div>
+
+    <div id="toast" class="fixed bottom-16 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-6 py-2 rounded-full text-sm font-bold shadow-xl opacity-0 transition-opacity pointer-events-none z-[200]">
+        Copied to clipboard!
+    </div>
+
+    <div id="overlay" class="fixed inset-0 bg-black/70 z-[100] hidden items-center justify-center p-4 backdrop-blur-sm">
+        <div id="modal-content" class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl transform transition-all text-center">
+        </div>
+    </div>
+
+    <script>
+        const MATERIALS = {
+            balloon: { name: "Rubber Balloon", icon: "🎈", affinity: -3, color: "bg-pink-400", border: "border-pink-500", fact: "Rubber is an insulator that loves to steal electrons!" },
+            wool: { name: "Wool Sweater", icon: "🧶", affinity: 3, color: "bg-orange-200", border: "border-orange-300", fact: "Wool gives away electrons easily, making it positive." },
+            glass: { name: "Glass Rod", icon: "🧪", affinity: 5, color: "bg-blue-100", border: "border-blue-200", fact: "Glass rod is very high on the series; it loses electrons easily." },
+            silk: { name: "Silk Cloth", icon: "🧣", affinity: -1, color: "bg-purple-200", border: "border-purple-300", fact: "Silk grabs electrons from glass but gives them to rubber." },
+            plastic: { name: "Plastic Comb", icon: "🪮", affinity: -4, color: "bg-gray-400", border: "border-gray-500", fact: "Plastic holds onto its electrons very tightly." },
+            hair: { name: "Human Hair", icon: "🧑", affinity: 4, color: "bg-yellow-800", border: "border-yellow-900", fact: "Hair loses electrons quickly. That's why it stands up!" }
+        };
+
+        const STATE = {
+            selected: [],
+            score: 0,
+            isRubbing: false,
+            discoveredPairs: new Set()
+        };
+
+        function init() {
+            const inv = document.getElementById('inventory');
+            Object.keys(MATERIALS).forEach(key => {
+                const m = MATERIALS[key];
+                const div = document.createElement('div');
+                div.className = `object-card ${m.color} p-2 rounded-xl shadow-sm border-b-4 border-black/10 flex flex-col items-center justify-center hover:scale-105 active:scale-95 transition-transform text-center`;
+                div.innerHTML = `
+                    <span class="text-3xl md:text-4xl mb-1">${m.icon}</span>
+                    <span class="text-[9px] md:text-[10px] font-bold uppercase leading-tight">${m.name}</span>
+                `;
+                div.onclick = () => selectMaterial(key);
+                inv.appendChild(div);
+            });
+            showInstructions();
+        }
+
+        function selectMaterial(key) {
+            if (STATE.isRubbing || STATE.selected.length >= 2) return;
+            if (STATE.selected.includes(key)) return;
+            STATE.selected.push(key);
+            const slotIdx = STATE.selected.length;
+            const container = document.getElementById(`obj-container-${slotIdx}`);
+            const slot = document.getElementById(`slot-${slotIdx}`);
+            container.innerHTML = `<div class="text-6xl md:text-8xl floating">${MATERIALS[key].icon}</div>`;
+            slot.classList.add('border-indigo-500', 'bg-indigo-50', 'shadow-inner');
+            if (STATE.selected.length === 2) {
+                document.getElementById('rub-btn').classList.remove('hidden');
+                document.getElementById('hint-text').innerText = "Click RUB THEM to start the reaction!";
+            } else {
+                document.getElementById('hint-text').innerText = "Now select Item 2 to compare.";
+            }
+        }
+
+        async function startRubbing() {
+            if (STATE.isRubbing) return;
+            STATE.isRubbing = true;
+            document.getElementById('rub-btn').classList.add('hidden');
+            document.getElementById('rubbing-area').classList.remove('hidden');
+            document.getElementById('micro-view-container').classList.remove('hidden');
+            const m1 = MATERIALS[STATE.selected[0]];
+            const m2 = MATERIALS[STATE.selected[1]];
+            document.getElementById('micro-label-1').innerText = m1.name;
+            document.getElementById('micro-label-2').innerText = m2.name;
+            const giver = m1.affinity > m2.affinity ? 1 : 2;
+            const receiver = giver === 1 ? 2 : 1;
+            for (let i = 0; i < 12; i++) {
+                createElectron(giver, receiver);
+                await new Promise(r => setTimeout(r, 150));
+                if (i % 4 === 0) createSpark();
+            }
+            setTimeout(() => finishExperiment(STATE.selected[giver-1], STATE.selected[receiver-1]), 600);
+        }
+
+        function createElectron(fromIdx, toIdx) {
+            const field = document.getElementById('particle-field');
+            const startEl = document.getElementById(`slot-${fromIdx}`);
+            const endEl = document.getElementById(`slot-${toIdx}`);
+            const startRect = startEl.getBoundingClientRect();
+            const endRect = endEl.getBoundingClientRect();
+            const fieldRect = field.getBoundingClientRect();
+            const e = document.createElement('div');
+            e.className = 'electron';
+            e.style.left = (startRect.left - fieldRect.left + startRect.width/2) + 'px';
+            e.style.top = (startRect.top - fieldRect.top + startRect.height/2) + 'px';
+            field.appendChild(e);
+            e.offsetHeight;
+            e.style.left = (endRect.left - fieldRect.left + endRect.width/2) + 'px';
+            e.style.top = (endRect.top - fieldRect.top + endRect.height/2) + 'px';
+            e.style.opacity = '0';
+            setTimeout(() => e.remove(), 600);
+            const microPath = document.getElementById('transfer-path');
+            const me = document.createElement('div');
+            me.className = 'electron';
+            me.style.top = '-4px';
+            me.style.left = fromIdx === 1 ? '0%' : '100%';
+            microPath.appendChild(me);
+            setTimeout(() => me.style.left = fromIdx === 1 ? '100%' : '0%', 10);
+            setTimeout(() => me.remove(), 500);
+        }
+
+        function createSpark() {
+            const area = document.getElementById('rubbing-area');
+            const s = document.createElement('div');
+            s.className = 'spark text-xl';
+            s.innerHTML = '⚡';
+            s.style.left = (Math.random() * 60 + 20) + '%';
+            s.style.top = (Math.random() * 60 + 20) + '%';
+            area.appendChild(s);
+            setTimeout(() => s.remove(), 300);
+        }
+
+        function finishExperiment(giverKey, receiverKey) {
+            const giver = MATERIALS[giverKey];
+            const receiver = MATERIALS[receiverKey];
+            const pairId = [giverKey, receiverKey].sort().join('-');
+            let bonus = 0;
+            if (!STATE.discoveredPairs.has(pairId)) {
+                STATE.discoveredPairs.add(pairId);
+                bonus = 50;
+                STATE.score += bonus;
+                document.getElementById('score').innerText = STATE.score;
+            }
+            document.getElementById('rubbing-area').classList.add('hidden');
+            document.getElementById('reset-btn').classList.remove('hidden');
+            const resultHtml = `
+                <h2 class="text-2xl font-title text-indigo-600 mb-2 uppercase">Discovery!</h2>
+                <div class="space-y-4 text-left bg-gray-50 p-4 rounded-xl border border-indigo-100">
+                    <p class="text-sm">When rubbed, <b>electrons</b> move from the ${giver.name} to the ${receiver.name}.</p>
+                    <div class="flex justify-around items-center py-4 bg-white rounded-lg shadow-inner border border-gray-100">
+                        <div class="text-center">
+                            <span class="text-4xl">${giver.icon}</span>
+                            <div class="text-[10px] text-red-600 font-bold">+ POSITIVE</div>
+                        </div>
+                        <div class="text-lg text-gray-300">➡</div>
+                        <div class="text-center">
+                            <span class="text-4xl">${receiver.icon}</span>
+                            <div class="text-[10px] text-blue-600 font-bold">- NEGATIVE</div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 italic">Fact: ${receiver.fact}</p>
+                </div>
+                <div class="flex flex-col gap-2 mt-6">
+                    <button onclick="closeModal()" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl shadow-md">Continue Lab</button>
+                    <button onclick="shareResult('${giver.name}', '${receiver.name}')" class="w-full bg-indigo-100 text-indigo-700 font-bold py-2 rounded-xl text-sm border border-indigo-200">Share Result</button>
+                </div>`;
+            showModal(resultHtml);
+        }
+
+        function shareResult(giver, receiver) {
+            const text = `I discovered that in Sir Angelo Medez's Static Lab, electrons move from ${giver} to ${receiver}! My score is ${STATE.score}! ⚡🔬`;
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+            const toast = document.getElementById('toast');
+            toast.style.opacity = '1';
+            setTimeout(() => toast.style.opacity = '0', 2000);
+        }
+
+        function resetLab() {
+            STATE.selected = [];
+            STATE.isRubbing = false;
+            ['1','2'].forEach(id => {
+                document.getElementById(`obj-container-${id}`).innerHTML = '';
+                document.getElementById(`slot-${id}`).classList.remove('border-indigo-500', 'bg-indigo-50', 'shadow-inner');
+            });
+            document.getElementById('rub-btn').classList.add('hidden');
+            document.getElementById('reset-btn').classList.add('hidden');
+            document.getElementById('micro-view-container').classList.add('hidden');
+            document.getElementById('hint-text').innerText = "Select two materials to rub together!";
+        }
+
+        function showModal(content) {
+            const overlay = document.getElementById('overlay');
+            const inner = document.getElementById('modal-content');
+            inner.innerHTML = content;
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').classList.add('hidden');
+            document.getElementById('overlay').classList.remove('flex');
+        }
+
+        function showInstructions() {
+            showModal(`
+                <h2 class="text-2xl font-title text-indigo-600 mb-4 uppercase">How to Play</h2>
+                <div class="text-left space-y-4 text-sm text-gray-700">
+                    <div class="flex gap-3"><span class="bg-indigo-100 w-6 h-6 rounded-full flex items-center justify-center font-bold text-indigo-600 shrink-0">1</span> <p>Select 2 different items from the grid.</p></div>
+                    <div class="flex gap-3"><span class="bg-indigo-100 w-6 h-6 rounded-full flex items-center justify-center font-bold text-indigo-600 shrink-0">2</span> <p>Click <b>RUB THEM</b> to watch electrons move between atoms.</p></div>
+                    <div class="flex gap-3"><span class="bg-indigo-100 w-6 h-6 rounded-full flex items-center justify-center font-bold text-indigo-600 shrink-0">3</span> <p>Discover all the <b>positive</b> and <b>negative</b> combinations!</p></div>
+                </div>
+                <button onclick="closeModal()" class="mt-8 w-full bg-indigo-600 text-white font-bold py-3 rounded-xl shadow-lg">Start Experiment</button>
+            `);
+        }
+
+        window.onload = init;
+    </script>
 </body>
 </html>
